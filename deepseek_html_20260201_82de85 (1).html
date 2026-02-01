@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Will You Be My Valentine Shivu?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+            padding: 15px;
+            touch-action: manipulation;
+        }
+        
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: clamp(20px, 5vw, 40px);
+            border-radius: clamp(15px, 4vw, 25px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-width: 95vw;
+            width: 100%;
+            z-index: 10;
+            position: relative;
+            border: clamp(5px, 2vw, 8px) solid #ff4d6d;
+            animation: pulse 2s infinite alternate;
+            overflow: hidden;
+        }
+        
+        @keyframes pulse {
+            0% { border-color: #ff4d6d; }
+            100% { border-color: #ff8fa3; }
+        }
+        
+        h1 {
+            color: #d63384;
+            font-size: clamp(1.8rem, 8vw, 2.8rem);
+            margin-bottom: clamp(15px, 4vw, 30px);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            line-height: 1.3;
+            padding: 0 10px;
+            word-wrap: break-word;
+        }
+        
+        .heart-icon {
+            color: #ff4d6d;
+            font-size: clamp(3rem, 15vw, 4rem);
+            margin-bottom: clamp(10px, 3vw, 20px);
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: clamp(15px, 4vw, 30px);
+            margin-top: clamp(20px, 6vw, 40px);
+            position: relative;
+            z-index: 5;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: clamp(14px, 4vw, 18px) clamp(30px, 8vw, 40px);
+            font-size: clamp(1.4rem, 5vw, 1.8rem);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            position: relative;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            min-width: clamp(120px, 40vw, 160px);
+            touch-action: manipulation;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .yes-btn {
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            color: white;
+        }
+        
+        .no-btn {
+            background: linear-gradient(to right, #f44336, #e53935);
+            color: white;
+        }
+        
+        .btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        @media (hover: hover) {
+            .btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        .message {
+            margin-top: clamp(20px, 6vw, 40px);
+            padding: clamp(15px, 4vw, 25px);
+            background-color: #fff0f3;
+            border-radius: clamp(12px, 3vw, 20px);
+            display: none;
+            animation: fadeIn 1s ease;
+            border-left: clamp(5px, 2vw, 8px) solid #ff4d6d;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message h2 {
+            color: #d63384;
+            margin-bottom: clamp(10px, 3vw, 15px);
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
+        }
+        
+        .message p {
+            color: #5a189a;
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            line-height: 1.4;
+            margin-bottom: clamp(8px, 2vw, 10px);
+        }
+        
+        .meeting-details {
+            background: linear-gradient(135deg, #ffd6e0, #fff0f3);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            border: 2px dashed #ff4d6d;
+        }
+        
+        .meeting-details strong {
+            color: #d63384;
+            font-size: 1.2em;
+        }
+        
+        .heart-balloon {
+            position: absolute;
+            font-size: clamp(2.5rem, 10vw, 4rem);
+            color: #ff4d6d;
+            z-index: 1;
+            animation: float 15s infinite linear;
+            cursor: pointer;
+            filter: drop-shadow(0 0 6px rgba(255, 77, 109, 0.5));
+            touch-action: none;
+            pointer-events: auto;
+            will-change: transform;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20vw, 15vh) rotate(90deg); }
+            50% { transform: translate(10vw, 30vh) rotate(180deg); }
+            75% { transform: translate(-10vw, 15vh) rotate(270deg); }
+            100% { transform: translate(0, 0) rotate(360deg); }
+        }
+        
+        .footer {
+            margin-top: clamp(15px, 4vw, 30px);
+            color: #888;
+            font-size: clamp(0.85rem, 3vw, 1rem);
+            padding: 0 10px;
+        }
+        
+        /* Mobile-specific optimizations */
+        @media (max-width: 768px) {
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: clamp(12px, 3vw, 20px);
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            body {
+                padding: 10px;
+                overflow-x: hidden;
+            }
+            
+            .heart-balloon {
+                /* Reduce number of balloons on very small screens */
+                display: none;
+            }
+            
+            .heart-balloon:nth-child(-n+4) {
+                display: block;
+            }
+            
+            /* Improve touch targets */
+            .btn {
+                padding: 18px 20px;
+            }
+            
+            .meeting-details {
+                padding: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .btn {
+                font-size: 1.3rem;
+                min-height: 55px;
+            }
+            
+            .heart-balloon {
+                font-size: 2.2rem;
+            }
+            
+            /* Hide more balloons on very small screens */
+            .heart-balloon:nth-child(n+3) {
+                display: none;
+            }
+            
+            .message h2 {
+                font-size: 1.4rem;
+            }
+            
+            .message p {
+                font-size: 1rem;
+            }
+        }
+        
+        /* Landscape mode optimizations */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .container {
+                padding: 15px;
+                max-height: 95vh;
+                overflow-y: auto;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+            
+            .buttons {
+                margin-top: 15px;
+                flex-direction: row;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1.2rem;
+                min-width: 120px;
+            }
+            
+            .heart-icon {
+                font-size: 2.5rem;
+                margin-bottom: 5px;
+            }
+            
+            .message {
+                margin-top: 15px;
+                padding: 12px;
+            }
+        }
+        
+        /* Prevent text selection on buttons */
+        .btn, .heart-balloon {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        /* Performance optimizations */
+        .heart-balloon {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        
+        /* Celebration animation for the message */
+        @keyframes celebrate {
+            0% { transform: scale(0.8); opacity: 0; }
+            70% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .celebrate {
+            animation: celebrate 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Heart balloons optimized for mobile -->
+    <div class="heart-balloon" style="top: 5%; left: 5%; animation-delay: 0s;"><i class="fas fa-heart"></i></div>
+    <div class="heart-balloon" style="top: 15%; right: 5%; animation-delay: -5s;"><i class="fas fa-heart"></i></div>
+    <div class="heart-balloon" style="bottom: 10%; left: 10%; animation-delay: -10s;"><i class="fas fa-heart"></i></div>
+    <div class="heart-balloon" style="bottom: 20%; right: 10%; animation-delay: -2s;"><i class="fas fa-heart"></i></div>
+    <div class="heart-balloon" style="top: 35%; left: 15%; animation-delay: -7s;"><i class="fas fa-heart"></i></div>
+    
+    <div class="container">
+        <div class="heart-icon">
+            <i class="fas fa-heart"></i>
+        </div>
+        
+        <h1>Will You Be My Valentine?</h1>
+        
+        <div class="buttons">
+            <button class="btn yes-btn" id="yesBtn">YES! <i class="fas fa-heart"></i></button>
+            <button class="btn no-btn" id="noBtn">No</button>
+        </div>
+        
+        <div class="message" id="message">
+            <h2>I knew you'd say YES! <i class="fas fa-heart"></i></h2>
+            <p>I'm so excited to spend Valentine's Day with you!</p>
+            
+            <div class="meeting-details">
+                <p>Let's meet today at <strong>Viman Nagar</strong></p>
+                <p>At <strong>7:00 PM</strong> sharp!</p>
+                <p>I'll be waiting near the Airport Gate</p>
+                <p>Wear something comfortable and warm ❤️</p>
+            </div>
+            
+            <p style="margin-top: 15px;">I've planned a romantic evening just for us!</p>
+            <p>Can't wait to see you <i class="fas fa-smile-wink"></i></p>
+        </div>
+        
+        <div class="footer">
+            <p>Made with <i class="fas fa-heart" style="color:#ff4d6d;"></i> for the most special person</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const message = document.getElementById('message');
+            const heartBalloons = document.querySelectorAll('.heart-balloon');
+            const container = document.querySelector('.container');
+            
+            // Check if device is mobile/touch device
+            const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints;
+            
+            // Make the "No" button move away when hovered or clicked
+            const moveNoButton = () => {
+                // Calculate safe position within viewport (consider container padding)
+                const containerRect = container.getBoundingClientRect();
+                const safeAreaPadding = 20;
+                
+                const maxX = window.innerWidth - noBtn.offsetWidth - safeAreaPadding;
+                const maxY = window.innerHeight - noBtn.offsetHeight - safeAreaPadding;
+                
+                // Ensure button stays within visible area
+                const minX = safeAreaPadding;
+                const minY = safeAreaPadding;
+                
+                const randomX = Math.max(minX, Math.min(maxX, Math.floor(Math.random() * maxX)));
+                const randomY = Math.max(minY, Math.min(maxY, Math.floor(Math.random() * maxY)));
+                
+                // Apply the new position
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+                noBtn.style.transition = 'left 0.4s, top 0.4s';
+                
+                // Add a slight rotation for fun
+                noBtn.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+                
+                // Add haptic feedback if available
+                if (isTouchDevice && navigator.vibrate) {
+                    navigator.vibrate(30);
+                }
+            };
+            
+            // Different events for touch vs mouse devices
+            if (isTouchDevice) {
+                // For touch devices, move on touchstart
+                noBtn.addEventListener('touchstart', function(e) {
+                    e.preventDefault();
+                    moveNoButton();
+                });
+                
+                // Prevent context menu on long press
+                noBtn.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+            } else {
+                // For desktop, move on mouseover
+                noBtn.addEventListener('mouseover', moveNoButton);
+            }
+            
+            // Also move on click for all devices
+            noBtn.addEventListener('click', function(e) {
+                if (!isTouchDevice) {
+                    moveNoButton();
+                }
+            });
+            
+            // When "Yes" is clicked, show the message
+            yesBtn.addEventListener('click', function() {
+                // Add celebration class to message
+                message.classList.add('celebrate');
+                
+                // Show the message with animation
+                message.style.display = 'block';
+                
+                // Hide the buttons
+                yesBtn.style.display = 'none';
+                noBtn.style.display = 'none';
+                
+                // Make heart balloons float faster
+                heartBalloons.forEach(balloon => {
+                    balloon.style.animationDuration = '8s';
+                    balloon.style.fontSize = 'clamp(3rem, 12vw, 5rem)';
+                    balloon.style.filter = 'drop-shadow(0 0 10px rgba(255, 77, 109, 0.7))';
+                });
+                
+                // Add some floating hearts animation
+                for(let i = 0; i < 15; i++) {
+                    setTimeout(() => {
+                        createFloatingHeart();
+                    }, i * 150);
+                }
+                
+                // Scroll to message on mobile
+                if (window.innerWidth < 768) {
+                    setTimeout(() => {
+                        message.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                }
+                
+                // Celebration haptic feedback on mobile
+                if (isTouchDevice && navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100, 50, 100]);
+                }
+                
+                // Play a subtle sound if allowed (optional)
+                try {
+                    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    playCelebrationSound(audioContext);
+                } catch (e) {
+                    console.log("Audio not supported or blocked");
+                }
+            });
+            
+            // Make heart balloons interactive for touch devices
+            heartBalloons.forEach(balloon => {
+                const eventType = isTouchDevice ? 'touchstart' : 'click';
+                
+                balloon.addEventListener(eventType, function(e) {
+                    if (isTouchDevice) e.preventDefault();
+                    
+                    // Make the balloon fly away
+                    this.style.transition = 'all 0.8s';
+                    this.style.transform = 'translateY(-100vh) rotate(360deg)';
+                    this.style.opacity = '0';
+                    
+                    // Create a new balloon after a delay
+                    setTimeout(() => {
+                        this.style.transition = 'none';
+                        this.style.transform = 'translate(0, 0)';
+                        this.style.opacity = '1';
+                        this.style.animationDuration = '15s';
+                    }, 1200);
+                    
+                    // Haptic feedback on mobile
+                    if (isTouchDevice && navigator.vibrate) {
+                        navigator.vibrate(30);
+                    }
+                });
+            });
+            
+            // Function to create floating hearts (optimized for mobile)
+            function createFloatingHeart() {
+                const heart = document.createElement('div');
+                heart.innerHTML = '<i class="fas fa-heart"></i>';
+                heart.style.position = 'fixed';
+                heart.style.color = '#ff4d6d';
+                heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+                heart.style.left = Math.random() * window.innerWidth + 'px';
+                heart.style.top = window.innerHeight + 'px';
+                heart.style.opacity = '0.7';
+                heart.style.zIndex = '1';
+                heart.style.pointerEvents = 'none';
+                heart.style.willChange = 'transform, opacity';
+                
+                document.body.appendChild(heart);
+                
+                // Animate the heart floating up
+                const animation = heart.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 0.7 },
+                    { transform: `translateY(-${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 2000 + 1500,
+                    easing: 'cubic-bezier(0.215, 0.610, 0.355, 1)'
+                });
+                
+                // Remove the heart after animation completes
+                animation.onfinish = () => {
+                    heart.remove();
+                };
+            }
+            
+            // Function to play celebration sound
+            function playCelebrationSound(audioContext) {
+                // Create a simple celebration sound
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+                oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+                oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+                
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+            
+            // Create some initial floating hearts (fewer on mobile)
+            const initialHearts = window.innerWidth < 768 ? 3 : 5;
+            for(let i = 0; i < initialHearts; i++) {
+                setTimeout(() => {
+                    createFloatingHeart();
+                }, i * 500);
+            }
+            
+            // Handle window resize for better mobile experience
+            let resizeTimeout;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(function() {
+                    // Reset no button position on resize
+                    noBtn.style.position = '';
+                    noBtn.style.left = '';
+                    noBtn.style.top = '';
+                    noBtn.style.transform = '';
+                }, 250);
+            });
+            
+            // Prevent zoom on double-tap for mobile
+            let lastTouchEnd = 0;
+            document.addEventListener('touchend', function(event) {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+            
+            // Add keyboard support for accessibility
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    yesBtn.focus();
+                }
+                if (e.key === 'Escape' && noBtn.style.display !== 'none') {
+                    moveNoButton();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
